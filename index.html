@@ -434,6 +434,13 @@
                     }
                 });
                 document.getElementById(`selectedExpenses-${i}`).innerText = rowTotal.toFixed(2);
+                const due = parseFloat(document.getElementById(`dueAmount-${i}`).innerText) || 0;
+const dpi = parseFloat(document.getElementById(`dpi-${i}`).innerText) || 0;
+const balance = parseFloat(document.getElementById(`balance-${i}`).innerText) || 0;
+const totalDue = balance + due + dpi + rowTotal;
+document.getElementById(`totalDue-${i}`).innerText = totalDue.toFixed(2);
+
+                
                 total += rowTotal;
             }
 
