@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MYTHRI FINANCE PRIVATE LIMITED</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            background: #f2f6fa;
+            color: #2c3e50;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        header img {
+            height: 60px;
+            margin-right: 15px;
+        }
+
+        header h1 {
+            font-size: 28px;
+            color: #1a5276;
+        }
+
+        h3 {
+            text-align: center;
+            color: #1a5276;
+        }
+
+        label,
+        input,
+        button,
+        table {
+            font-size: 14px;
+        }
+
+        input,
+        button {
+            padding: 8px;
+            margin: 4px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        input[type="number"],
+        input[type="text"],
+        input[type="date"] {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2e86c1;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        th,
+        td {
+            border: 1px solid #dcdcdc;
+            padding: 8px;
+            text-align: center;
+            vertical-align: top;
+        }
+
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .section {
+            margin-top: 30px;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .table-section-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .gap-info {
+            font-size: 11px;
+            color: #7f8c8d;
+            display: block;
+        }
+
+        .inline {
+            display: inline-block;
+            margin-right: 15px;
+            margin-bottom: 10px;
+        }
+
+        #summary {
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        h3 span {
+            color: #c0392b;
+        }
+
+        .bill-summary-box {
+            border: 2px solid #2c3e50;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #ecf0f1;
+            width: fit-content;
+            margin: 20px auto;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+        }
+
+        .bill-summary-box h3 {
+            margin: 10px 0;
+            font-weight: 600;
+            color: #1a5276;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+</head>
+
+<body>
+    <header>
+        <img src="mfpl.png" alt="MFPL Logo" style="max-height: 80px; width: auto;">
+        <h1>MYTHRI FINANCE PRIVATE LIMITED</h1>
+    </header>
+    <!-- Contract Summary Section -->
+    <div class="section">
+        <div class="table-section-title">Contract Summary</div>
+        <table>
+            <tr>
+                <th>Field</th>
+                <th>Details</th>
+            </tr>
+            <tr>
+                <td>Agreement Number</td>
+                <td><input type="text" placeholder="Agreement Number"></td>
+            </tr>
+            <tr>
+                <td>Agreement Date</td>
+                <td><input type="date"></td>
+            </tr>
+            <tr>
+                <td>Loan Tenure</td>
+                <td><input type="text" placeholder="Loan Tenure (in months or years)"></td>
+            </tr>
+            <tr>
+                <td>Number of EMIs</td>
+                <td><input type="number" placeholder="Number of EMIs"></td>
+            </tr>
+        </table>
+    </div>
+
+
+    <!-- Borrower & Guarantor -->
+    <div class="section">
+        <div class="table-section-title">Borrower & Guarantor Details</div>
+        <table>
+            <tr>
+                <th>Field</th>
+                <th>Borrower</th>
+                <th>Guarantor</th>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td><input type="text" placeholder="Name - Borrower"></td>
+                <td><input type="text" placeholder="Name - Guarantor"></td>
+            </tr>
+            <tr>
+                <td>S/o</td>
+                <td><input type="text" placeholder="S/o - Borrower"></td>
+                <td><input type="text" placeholder="S/o - Guarantor"></td>
+            </tr>
+            <tr>
+                <td>H.No</td>
+                <td><input type="text" placeholder="H.No - Borrower"></td>
+                <td><input type="text" placeholder="H.No - Guarantor"></td>
+            </tr>
+            <tr>
+                <td>Street</td>
+                <td><input type="text" placeholder="Street - Borrower"></td>
+                <td><input type="text" placeholder="Street - Guarantor"></td>
+            </tr>
+            <tr>
+                <td>Land Mark</td>
+                <td><input type="text" placeholder="Land Mark - Borrower"></td>
+                <td><input type="text" placeholder="Land Mark - Guarantor"></td>
+            </tr>
+            <tr>
+                <td>District</td>
+                <td><input type="text" placeholder="District - Borrower"></td>
+                <td><input type="text" placeholder="District - Guarantor"></td>
+            </tr>
+            <tr>
+                <td>Pin Code</td>
+                <td><input type="text" placeholder="Pin Code - Borrower"></td>
+                <td><input type="text" placeholder="Pin Code - Guarantor"></td>
+            </tr>
+            <tr>
+                <td>Cell Num</td>
+                <td><input type="text" placeholder="Cell Num - Borrower"></td>
+                <td><input type="text" placeholder="Cell Num - Guarantor"></td>
+            </tr>
+            <tr>
+                <td>Aadhar Num</td>
+                <td><input type="text" placeholder="Aadhar Num - Borrower"></td>
+                <td><input type="text" placeholder="Aadhar Num - Guarantor"></td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Editable Legal Expense Table -->
+    <div class="section">
+        <div class="table-section-title">Editable Legal Expenses</div>
+        <table id="legalExpenseTable">
+            <tr>
+                <th>Expense Name</th>
+                <th>Amount (₹)</th>
+            </tr>
+            <tr>
+                <td><input type="text" value="Legal Charge" /></td>
+                <td><input type="number" value="1000" /></td>
+            </tr>
+            <tr>
+                <td><input type="text" value="Inspection Charge" /></td>
+                <td><input type="number" value="2000" /></td>
+            </tr>
+            <tr>
+                <td><input type="text" value="Verification Charge" /></td>
+                <td><input type="number" value="3000" /></td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- EMI Inputs -->
+    <div class="section">
+        <div class="inline"><label>Loan Amount (P):<br><input type="number" id="loanAmount" /></label></div>
+        <div class="inline"><label>Interest Rate (Annual %):<br><input type="number" id="interestRate" step="0.01" /></label></div>
+        <div class="inline"><label>Number of EMIs (N):<br><input type="number" id="numEmis" oninput="updateEndDate()" /></label></div>
+        <div class="inline"><label>EMI Start Date:<br><input type="date" id="startDate" onchange="updateEndDate()" /></label></div>
+        <div class="inline"><label>EMI End Date:<br><input type="text" id="endDate" readonly /></label></div>
+        <div class="inline"><button onclick="generateEMITable()">Generate EMI Table</button></div>
+    </div>
+
+    <div id="summary"></div>
+    <table id="emiTable"></table>
+    <div class="bill-summary-box">
+        <h3>As on Date Settlement Amount: ₹<span id="totalAmountDue">0.00</span></h3>
+        <h3>Total EMI Due: ₹<span id="emiDueAmount">0.00</span></h3>
+        <h3>Total Legal Expenses: ₹<span id="totalLegalExpenses">0.00</span></h3>
+        <h3>Total DPI Due: ₹<span id="dpiDueAmount">0.00</span></h3>
+    </div>
+
+
+
+
+    <div style="text-align: center;">
+
+        <button id="printPdfBtn">Print to PDF</button>
+    </div>
+
+    <script>
+        let emiGlobal = 0;
+        let principalPerMonthGlobal = 0;
+
+        function getUpdatedExpenseItems() {
+            const rows = document.querySelectorAll("#legalExpenseTable tr");
+            const updatedItems = [];
+            rows.forEach((row, i) => {
+                if (i === 0) return;
+                const inputs = row.querySelectorAll("input");
+                const name = inputs[0].value.trim();
+                const amount = parseFloat(inputs[1].value.trim());
+                if (name && !isNaN(amount)) {
+                    updatedItems.push({
+                        name,
+                        amount
+                    });
+                }
+            });
+            return updatedItems;
+        }
+
+        function updateEndDate() {
+            const startDate = new Date(document.getElementById("startDate").value);
+            const num = parseInt(document.getElementById("numEmis").value);
+            if (!isNaN(startDate.getTime()) && !isNaN(num)) {
+                const endDate = new Date(startDate);
+                endDate.setMonth(endDate.getMonth() + num - 1);
+                document.getElementById("endDate").value = endDate.toISOString().split("T")[0];
+            }
+        }
+
+        function generateEMITable() {
+            const P = parseFloat(document.getElementById('loanAmount').value);
+            const R = parseFloat(document.getElementById('interestRate').value);
+            const N = parseInt(document.getElementById('numEmis').value);
+            const start = new Date(document.getElementById('startDate').value);
+            if (isNaN(P) || isNaN(R) || isNaN(N) || !start.getTime()) {
+                alert("Please fill all fields correctly.");
+                return;
+            }
+
+            const expenseItems = getUpdatedExpenseItems();
+            const totalInterest = (P * R * N) / (12 * 100);
+            const totalPayable = P + totalInterest;
+            const emi = totalPayable / N;
+            const interestPerMonth = totalInterest / N;
+            const principalPerMonth = P / N;
+            emiGlobal = emi;
+            principalPerMonthGlobal = principalPerMonth;
+
+            const table = document.getElementById('emiTable');
+            const summary = document.getElementById('summary');
+            table.innerHTML = `
+        <tr>
+          <th>EMI No.</th>
+          <th>EMI Due Date</th>
+          <th>EMI Amount</th>
+          <th>EMI Paid</th>
+          <th>EMI Paid Date</th>
+          <th>EMI Due Amount</th>
+          <th>Balance</th>
+          <th>DPI @36%</th>
+          <th>Expenses</th>
+          <th>Selected Expense Total</th>
+          <th>Total Amount Due</th>
+        </tr>
+      `;
+
+            for (let i = 1; i <= N; i++) {
+                const dueDate = new Date(start.getFullYear(), start.getMonth() + i - 1, start.getDate());
+                const dueDateStr = dueDate.toISOString().split('T')[0];
+
+                const checkboxes = expenseItems.map(item =>
+                    `<label><input type="checkbox" class="expense-check" data-emi="${i}" data-amt="${item.amount}" onchange="updateLegalExpenses()"> ${item.name} (₹${item.amount})</label><br>`
+                ).join("");
+
+                table.innerHTML += `
+          <tr>
+            <td>${i}</td>
+            <td>${dueDateStr}</td>
+            <td>${emi.toFixed(2)}</td>
+            <td><input type="number" value="${emi.toFixed(2)}" min="0" step="0.01" oninput="updateRows()" id="paid-${i}" /></td>
+            <td><input type="date" value="${dueDateStr}" oninput="updateRows()" id="paidDate-${i}" />
+              <span class="gap-info" id="gap-${i}">Gap: 0 days</span></td>
+            <td id="dueAmount-${i}">0.00</td>
+            <td id="balance-${i}">0.00</td>
+            <td id="dpi-${i}">0.00</td>
+            <td>${checkboxes}</td>
+            <td id="selectedExpenses-${i}">0.00</td>
+            <td id="totalDue-${i}">0.00</td>
+          </tr>
+        `;
+            }
+
+            summary.innerHTML = `<h3>Principle/month: ₹${principalPerMonth.toFixed(2)} | Interest/month: ₹${interestPerMonth.toFixed(2)}</h3>`;
+            updateRows();
+            updateLegalExpenses();
+
+
+        }
+
+        function updateRows() {
+            const emi = emiGlobal;
+            const principal = principalPerMonthGlobal;
+            const N = parseInt(document.getElementById('numEmis').value);
+            let totalDuePrev = parseFloat(document.getElementById('loanAmount').value);
+
+            for (let i = 1; i <= N; i++) {
+                const paid = parseFloat(document.getElementById(`paid-${i}`).value) || 0;
+                const paidDate = new Date(document.getElementById(`paidDate-${i}`).value);
+                const dueDate = new Date(document.getElementById(`paidDate-${i}`).defaultValue);
+                const due = Math.max(0, emi - paid);
+                const gap = Math.max(0, Math.floor((paidDate - dueDate) / (1000 * 60 * 60 * 24)));
+                const dpi = ((due * 36 * gap) / 36500);
+                const expense = parseFloat(document.getElementById(`selectedExpenses-${i}`).innerText) || 0;
+
+                const balance = totalDuePrev - principal + due + dpi;
+                const totalDue = balance + due + dpi + expense;
+
+                document.getElementById(`gap-${i}`).innerText = `Gap: ${gap} day${gap !== 1 ? 's' : ''}`;
+                document.getElementById(`dueAmount-${i}`).innerText = due.toFixed(2);
+                document.getElementById(`dpi-${i}`).innerText = dpi.toFixed(2);
+                document.getElementById(`balance-${i}`).innerText = balance.toFixed(2);
+                document.getElementById(`totalDue-${i}`).innerText = totalDue.toFixed(2);
+
+                totalDuePrev = totalDue;
+            }
+            updateTotalRow();
+
+        }
+
+        function updateLegalExpenses() {
+            const N = parseInt(document.getElementById('numEmis').value);
+            let total = 0;
+
+            for (let i = 1; i <= N; i++) {
+                const checks = document.querySelectorAll(`.expense-check[data-emi="${i}"]`);
+                let rowTotal = 0;
+                checks.forEach(c => {
+                    if (c.checked) {
+                        rowTotal += parseFloat(c.dataset.amt);
+                    }
+                });
+                document.getElementById(`selectedExpenses-${i}`).innerText = rowTotal.toFixed(2);
+                total += rowTotal;
+            }
+
+            document.getElementById('totalLegalExpenses').innerText = total.toFixed(2);
+
+            updateTotalRow();
+
+        }
+
+        function updateTotalRow() {
+            const table = document.getElementById('emiTable');
+            const N = parseInt(document.getElementById('numEmis').value);
+            let totalEmi = 0,
+                totalPaid = 0,
+                totalDueAmt = 0,
+                totalDpi = 0,
+                totalExpenses = 0;
+
+            for (let i = 1; i <= N; i++) {
+                totalEmi += parseFloat(table.rows[i].cells[2].innerText);
+                totalPaid += parseFloat(document.getElementById(`paid-${i}`).value) || 0;
+                totalDueAmt += parseFloat(document.getElementById(`dueAmount-${i}`).innerText);
+                totalDpi += parseFloat(document.getElementById(`dpi-${i}`).innerText);
+                totalExpenses += parseFloat(document.getElementById(`selectedExpenses-${i}`).innerText);
+            }
+
+            const lastBalance = document.getElementById(`balance-${N}`).innerText;
+            const lastTotalDue = document.getElementById(`totalDue-${N}`).innerText;
+
+            const oldTotalRow = document.getElementById("totalRow");
+            if (oldTotalRow) oldTotalRow.remove(); // remove old total row
+
+            const totalRow = table.insertRow(-1);
+            totalRow.id = "totalRow";
+            totalRow.style.fontWeight = "bold";
+            totalRow.style.backgroundColor = "#ecf0f1";
+
+            totalRow.innerHTML = `
+        <td colspan="2">Total</td>
+        <td>${totalEmi.toFixed(2)}</td>
+        <td>${totalPaid.toFixed(2)}</td>
+        <td></td>
+        <td>${totalDueAmt.toFixed(2)}</td>
+        <td>${lastBalance}</td>
+        <td>${totalDpi.toFixed(2)}</td>
+        <td></td>
+        <td>${totalExpenses.toFixed(2)}</td>
+        <td>${lastTotalDue}</td>
+    `;
+        }
+    </script>
+
+    <script>
+        document.getElementById('printPdfBtn').addEventListener('click', function() {
+            // Hide Legal Expenses Table
+            const legalTable = document.getElementById('legalExpensesTable');
+            if (legalTable) legalTable.style.display = 'none';
+
+            // Trigger print
+            window.print();
+
+            // After print, show Legal Expenses Table again
+
+        });
+    </script>
+    <script>
+        function extractTotalsFromTable() {
+            const emiTable = document.getElementById("emiTable");
+            if (!emiTable || emiTable.rows.length < 2) return;
+
+            let totalEmiDue = 0,
+                totalExpenses = 0,
+                totalDpi = 0;
+            let totalAmountDue = 0;
+
+            for (let i = 1; i < emiTable.rows.length - 1; i++) { // skip header and total row
+                totalEmiDue += parseFloat(emiTable.rows[i].querySelector(`#dueAmount-${i}`)?.innerText || 0);
+                totalExpenses += parseFloat(emiTable.rows[i].querySelector(`#selectedExpenses-${i}`)?.innerText || 0);
+                totalDpi += parseFloat(emiTable.rows[i].querySelector(`#dpi-${i}`)?.innerText || 0);
+                totalAmountDue = parseFloat(emiTable.rows[i].querySelector(`#totalDue-${i}`)?.innerText || totalAmountDue);
+            }
+
+            document.getElementById("emiDueAmount").innerText = totalEmiDue.toFixed(2);
+            document.getElementById("totalLegalExpenses").innerText = totalExpenses.toFixed(2);
+            document.getElementById("dpiDueAmount").innerText = totalDpi.toFixed(2);
+            document.getElementById("totalAmountDue").innerText = totalAmountDue.toFixed(2);
+        }
+
+        // Automatically call it after EMI table updates
+        const origUpdateRows = updateRows;
+        updateRows = function() {
+            origUpdateRows();
+            extractTotalsFromTable();
+        };
+    </script>
+
+</body>
+
+</html>
