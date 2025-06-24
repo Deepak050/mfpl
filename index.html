@@ -421,34 +421,50 @@
 
         }
 
-        function updateLegalExpenses() {
-            const N = parseInt(document.getElementById('numEmis').value);
-            let total = 0;
+      function updateLegalExpenses() {
+    const N = parseInt(document.getElementById('numEmis').value);
+    let total = 0;
+    let totalDuePrev = parseFloat(document.getElementById('loanAmount').value);
+    const principal = principalPerMonthGlobal;
+    const emi = emiGlobal;
 
-            for (let i = 1; i <= N; i++) {
-                const checks = document.querySelectorAll(`.expense-check[data-emi="${i}"]`);
-                let rowTotal = 0;
-                checks.forEach(c => {
-                    if (c.checked) {
-                        rowTotal += parseFloat(c.dataset.amt);
-                    }
-                });
-                document.getElementById(`selectedExpenses-${i}`).innerText = rowTotal.toFixed(2);
-                const due = parseFloat(document.getElementById(`dueAmount-${i}`).innerText) || 0;
-const dpi = parseFloat(document.getElementById(`dpi-${i}`).innerText) || 0;
-const balance = parseFloat(document.getElementById(`balance-${i}`).innerText) || 0;
-const totalDue = balance + due + dpi + rowTotal;
-document.getElementById(`totalDue-${i}`).innerText = totalDue.toFixed(2);
-
-                
-                total += rowTotal;
+    for (let i = 1; i <= N; i++) {
+        // Update selected expenses
+        const checks = document.querySelectorAll(`.expense-check[data-emi="${i}"]`);
+        let rowTotal = 0;
+        checks.forEach(c => {
+            if (c.checked) {
+                rowTotal += parseFloat(c.dataset.amt);
             }
+        });
+        document.getElementById(`selectedExpenses-${i}`).innerText = rowTotal.toFixed(2);
 
-            document.getElementById('totalLegalExpenses').innerText = total.toFixed(2);
+        // Recalculate due, dpi
+        const paid = parseFloat(document.getElementById(`paid-${i}`).value) || 0;
+        const paidDate = new Date(document.getElementById(`paidDate-${i}`).value);
+        const dueDate = new Date(document.getElementById(`paidDate-${i}`).defaultValue);
+        const due = Math.max(0, emi - paid);
+        const gap = Math.max(0, Math.floor((paidDate - dueDate) / (1000 * 60 * 60 * 24)));
+        const dpi = ((due * 36 * gap) / 36500);
 
-            updateTotalRow();
+        const balance = totalDuePrev - principal + due + dpi;
+        const totalDue = balance + due + dpi + rowTotal;
 
-        }
+        // Update row fields
+        document.getElementById(`gap-${i}`).innerText = `Gap: ${gap} day${gap !== 1 ? 's' : ''}`;
+        document.getElementById(`dueAmount-${i}`).innerText = due.toFixed(2);
+        document.getElementById(`dpi-${i}`).innerText = dpi.toFixed(2);
+        document.getElementById(`balance-${i}`).innerText = balance.toFixed(2);
+        document.getElementById(`totalDue-${i}`).innerText = totalDue.toFixed(2);
+
+        totalDuePrev = totalDue;
+        total += rowTotal;
+    }
+
+    document.getElementById('totalLegalExpenses').innerText = total.toFixed(2);
+    updateTotalRow();
+}
+
 
         function updateTotalRow() {
             const table = document.getElementById('emiTable');
